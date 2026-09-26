@@ -118,7 +118,7 @@ h1{ font-size:clamp(22px,4vw,30px); margin:0 0 4px; letter-spacing:-.01em; text-
 .google-icon { flex: none; }
 
 .stat{ min-width:180px; }
-.stat-num{ font-family:"IBM Plex Mono"; font-size:26px; font-weight:600; font-variant-numeric:tabular-nums; }
+.stat-num{ font-family:"IBM Plex Mono"; font-size:26px; font-weight:600; font-variant-numeric:tabular-nums; margin-bottom:6px; }
 .stat-slash{ color:var(--page-ink-faint); margin:0 3px; }
 .stat-label{ font-size:12px; color:var(--page-ink-soft); margin-block:2px 8px; }
 .top .progress-track{ background:var(--panel-line); }

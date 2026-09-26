@@ -33,7 +33,6 @@
       </button>
       <div class="stat">
         <div class="stat-num"><span id="doneCount">0</span><span class="stat-slash">/</span><span id="totalCount">0</span></div>
-        <div class="stat-label">항목 완료</div>
         <div class="progress-track"><div class="progress-fill" id="headerFill"></div></div>
       </div>
     </div>
@@ -66,7 +65,8 @@
         <text x="500" y="20" text-anchor="middle" class="section-label">무엇으로 만들 것인가</text>
         <text x="500" y="196" text-anchor="middle" class="section-label">시스템이 동작하는 순서</text>
         <text x="256" y="372" class="section-label">기반</text>
-        <text x="500" y="502" text-anchor="middle" class="section-label">모든 코드를 관리하는 기록</text>
+        <text x="464" y="502" text-anchor="middle" class="section-label">모든 코드를 관리하는 기록</text>
+        <text x="888" y="502" text-anchor="middle" class="section-label">참고자료</text>
 
         <!-- actor -->
         <circle cx="60" cy="250" r="30" class="actor-ring"></circle>
@@ -179,12 +179,22 @@
 
         <!-- GIT -->
         <g class="node" tabindex="0" role="button" aria-label="버전관리 섹션 열기" data-topic="git">
-          <rect class="box" x="140" y="508" width="720" height="72" rx="10"></rect>
-          <text x="500" y="542" text-anchor="middle" class="node-title">버전관리 (Git)</text>
-          <text x="500" y="560" text-anchor="middle" class="node-sub">코드가 변화해 온 과정을 기록하고 되돌리는 방법</text>
-          <rect class="node-fill-track" x="156" y="568" width="688" height="5" rx="2.5"></rect>
+          <rect class="box" x="140" y="508" width="648" height="72" rx="10"></rect>
+          <text x="464" y="542" text-anchor="middle" class="node-title">버전관리 (Git)</text>
+          <text x="464" y="560" text-anchor="middle" class="node-sub">코드가 변화해 온 과정을 기록하고 되돌리는 방법</text>
+          <rect class="node-fill-track" x="156" y="568" width="616" height="5" rx="2.5"></rect>
           <rect class="node-fill" data-fill="git" x="156" y="568" width="0" height="5" rx="2.5"></rect>
-          <text x="846" y="530" text-anchor="end" class="node-count" data-count="git">0/0</text>
+          <text x="772" y="530" text-anchor="end" class="node-count" data-count="git">0/0</text>
+        </g>
+
+        <!-- REF -->
+        <g class="node" tabindex="0" role="button" aria-label="Ref 섹션 열기" data-topic="ref">
+          <rect class="box" x="808" y="508" width="160" height="72" rx="10"></rect>
+          <text x="888" y="542" text-anchor="middle" class="node-title">Ref</text>
+          <text x="888" y="560" text-anchor="middle" class="node-sub">참고자료·링크</text>
+          <rect class="node-fill-track" x="822" y="568" width="132" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="ref" x="822" y="568" width="0" height="5" rx="2.5"></rect>
+          <text x="954" y="530" text-anchor="end" class="node-count" data-count="ref">0/0</text>
         </g>
         </g>
       </svg>

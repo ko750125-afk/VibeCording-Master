@@ -129,12 +129,17 @@ var TOPICS = [
     {id:"git-5", title:"Pull Request와 협업 흐름"},
     {id:"git-6", title:"충돌(Conflict) 해결 기본"},
     {id:"git-7", title:"되돌리기(revert/reset) 기본"}
+  ]},
+  { id:"ref", name:"Ref", sub:"참고자료·링크", desc:"개발 시 자주 찾는 공식 문서, 유용한 팁 및 참조 링크 모음", subtopics:[
+    {id:"ref-1", title:"공식 문서 및 레퍼런스 모음"},
+    {id:"ref-2", title:"유용한 치트시트 및 도구"},
+    {id:"ref-3", title:"자주 찾는 에러 해결 가이드"}
   ]}
 ];
 
 // Ids of the first seed list, so a migration can tell user-deleted items from new ones.
 var V1_SEED_COUNTS = { techstack:["stk",10], frontend:["fe",9], api:["api",8], backend:["be",9],
-  database:["db",8], network:["nw",7], auth:["auth",8], deploy:["ops",8], git:["git",7] };
+  database:["db",8], network:["nw",7], auth:["auth",8], deploy:["ops",8], git:["git",7], ref:["ref",3] };
 var SEED_VERSION = 3;
 var ADDED_IN_V3 = { "ai-13":true, "fe-16":true, "api-13":true };
 var BODY_VERSION = 1;
@@ -934,5 +939,25 @@ JSON = 데이터를 주고받는 표준 텍스트 형식.
 - git reset: 커밋 기록 자체를 이전 시점으로 옮긴다
   --soft: 변경 내용은 남긴다 / --hard: 변경 내용까지 지운다 (복구가 어렵다)
 - git stash: 작업 중인 변경을 잠시 치워 둔다
-- 이미 공유(push)한 기록은 reset으로 지우지 않는다`
+- 이미 공유(push)한 기록은 reset으로 지우지 않는다`,
+
+  /* ── Ref (참고자료) ── */
+  "ref-1": `자주 찾는 프론트엔드·백엔드 및 AI 도구 공식 문서 링크 모음.
+
+- MDN Web Docs: HTML/CSS/JS 웹 표준 명세 및 레퍼런스
+- React / Next.js / Vue 공식 가이드 문서
+- Firebase / Supabase 개발자 문서
+- 각종 API 및 SDK 명세서 링크`,
+
+  "ref-2": `바이브코딩 및 개발 생산성을 높여주는 치트시트와 유용한 도구.
+
+- Git 명령어 치트시트
+- 자주 쓰는 프롬프트 템플릿 및 규칙(Rule) 모음
+- 유용한 온라인 도구 (정규표현식 테스터, JSON 포맷터 등)`,
+
+  "ref-3": `자주 마주치는 에러 유형과 해결 패턴 정리.
+
+- CORS 에러, 환경변수 누락, 인증 토큰 만료
+- 빌드/배포 실패 시 체크리스트
+- 해결했던 문제의 원인과 해결책을 메모로 기록해두는 공간`
 };
