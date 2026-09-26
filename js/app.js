@@ -670,6 +670,7 @@
   var noteTitleInput = document.getElementById("noteTitleInput");
   var noteSaveHint   = document.getElementById("noteSaveHint");
   var noteSaveBtn    = document.getElementById("noteSaveBtn");
+  var noteCopyBtn    = document.getElementById("noteCopyBtn");
   var currentNote    = null;
 
   function openNoteModal(topic, sub) {
@@ -843,6 +844,20 @@
       if (topic && drawer.classList.contains("open")) renderSubList(topic);
     });
     noteTitleInput.addEventListener("blur", flushListSave);
+
+    noteCopyBtn.addEventListener("click", function () {
+      var title = noteTitleInput.value.trim();
+      var body = noteTextarea.value.trim();
+      var textToCopy = "제목> " + (title || "제목 없음") + "\n\n" + body;
+      navigator.clipboard.writeText(textToCopy).then(function() {
+        var original = noteCopyBtn.textContent;
+        noteCopyBtn.textContent = "복사완료";
+        setTimeout(function () { noteCopyBtn.textContent = original; }, 1100);
+      }).catch(function(err) {
+        console.error(err);
+        alert("복사 실패");
+      });
+    });
 
     noteSaveBtn.addEventListener("click", function () {
       if (!currentNote) return;

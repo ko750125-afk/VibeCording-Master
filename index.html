@@ -234,7 +234,10 @@
   <textarea id="noteTextarea" class="note-textarea" placeholder="AI와의 대화에서 배운 내용을 여기에 자유롭게 정리하세요..."></textarea>
   <div class="note-modal-foot">
     <span class="mono note-save-hint" id="noteSaveHint">마지막 저장: —</span>
-    <button class="save-btn" id="noteSaveBtn" type="button">저장</button>
+    <div style="display: flex; gap: 8px;">
+      <button class="save-btn" id="noteCopyBtn" type="button" style="background:#f1f3f5; color:#495057;">복사</button>
+      <button class="save-btn" id="noteSaveBtn" type="button">저장</button>
+    </div>
   </div>
 </section>
 
