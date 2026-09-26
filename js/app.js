@@ -420,13 +420,20 @@
   /* ════════════════════════════════════════════════
    * 7. 진행률 계산
    * ════════════════════════════════════════════════ */
+  function requireLogin() {
+    if (!window.fbAuth || !window.fbAuth.currentUser) {
+      alert("항목을 수정하려면 구글 로그인이 필요합니다.");
+      return false;
+    }
+    return true;
+  }
+
   function topicProgress(topic) {
     var subs = getSubtopics(topic).filter(function (s) { return isActive(topic, s); });
     var done = 0;
     subs.forEach(function (s) {
       var st = entry(s.id).status;
-      if (st === STATUS.DONE)     done += 1;
-      else if (st === STATUS.LEARNING) done += 0.5;
+      if (st === STATUS.DONE) done += 1;
     });
     return { done: done, total: subs.length };
   }
@@ -569,6 +576,7 @@
       setChip(chip, e.status);
       chip.addEventListener("click", function (ev) {
         ev.stopPropagation();
+        if (!requireLogin()) return;
         e.status    = (e.status + 1) % 3;
         e.updatedAt = Date.now();
         setChip(chip, e.status);
@@ -611,6 +619,7 @@
       del.textContent = "삭제";
       del.addEventListener("click", function (ev) {
         ev.stopPropagation();
+        if (!requireLogin()) return;
         showConfirm(
           "항목을 삭제할까요?",
           '"' + s.title + '" 항목과 작성한 메모가 함께 삭제되며, 되돌릴 수 없습니다.',
@@ -641,7 +650,10 @@
     addBtn.type      = "button";
     addBtn.className = "add-row";
     addBtn.textContent = "+ 새 항목 추가";
-    addBtn.addEventListener("click", function () { openNewNoteModal(topic); });
+    addBtn.addEventListener("click", function () { 
+      if (!requireLogin()) return;
+      openNewNoteModal(topic); 
+    });
     list.appendChild(addBtn);
 
     renderDrawerProgress(topic);
@@ -668,8 +680,14 @@
     var draft = DRAFTS[sub.id];
     noteTextarea.value = draft !== undefined ? draft : (e.notes || "");
     setNoteDirty(draft !== undefined);
+    
+    var loggedIn = window.fbAuth && window.fbAuth.currentUser;
+    noteTitleInput.readOnly = !loggedIn;
+    noteTextarea.readOnly = !loggedIn;
+    noteSaveBtn.style.display = loggedIn ? "" : "none";
+    
     showNoteModal();
-    setTimeout(function () { noteTextarea.focus(); }, 60);
+    setTimeout(function () { if (loggedIn) noteTextarea.focus(); }, 60);
   }
 
   function openNewNoteModal(topic) {
@@ -678,6 +696,11 @@
     noteTextarea.value   = "";
     setChip(noteChip, STATUS.TODO);
     setNoteDirty(false);
+    
+    noteTitleInput.readOnly = false;
+    noteTextarea.readOnly = false;
+    noteSaveBtn.style.display = "";
+    
     showNoteModal();
     setTimeout(function () { noteTitleInput.focus(); }, 60);
   }
@@ -850,6 +873,7 @@
 
     noteChip.addEventListener("click", function () {
       if (!currentNote) return;
+      if (!requireLogin()) return;
       if (currentNote.isNew) {
         currentNote.status = (currentNote.status + 1) % 3;
         setChip(noteChip, currentNote.status);
