@@ -31,11 +31,16 @@ self.addEventListener('activate', event => {
 
 // 가져오기: 네트워크 우선, 실패하면 캐시 사용 (오프라인 대비)
 self.addEventListener('fetch', event => {
+  // GET 요청이 아니면 가로채지 않고 그대로 통과
+  if (event.request.method !== 'GET') {
+    return;
+  }
+  
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // 네트워크 성공 시 캐시도 갱신
-        if (response.ok) {
+        // 유효한 응답일 때만 캐시 갱신
+        if (response && response.status === 200 && response.type === 'basic') {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
