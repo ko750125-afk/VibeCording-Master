@@ -344,6 +344,9 @@ svg.diagram{ display:block; width:100%; height:auto; }
     padding-top:env(safe-area-inset-top, 0px); padding-bottom:env(safe-area-inset-bottom, 0px);
   }
   .note-modal.open{ transform:none; }
+  .note-modal-head { flex-wrap: wrap; padding: 16px 20px; gap: 8px; }
+  .note-title-input { order: 2; width: 100%; font-size: 16px; margin-top: 4px; }
+  .note-modal-actions { order: 1; width: 100%; justify-content: flex-end; }
 }
 
 .add-row{

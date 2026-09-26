@@ -472,7 +472,14 @@
   }
   function attemptCloseNoteModal(){
     if(noteSaveHint.classList.contains("dirty")){
-      nudgeSaveBtn();
+      showConfirm(
+        "변경사항 취소", 
+        "저장하지 않은 내용은 모두 사라집니다. 편집을 취소하고 나가시겠습니까?", 
+        function(){
+          if(currentNote && currentNote.subId) delete DRAFTS[currentNote.subId];
+          closeNoteModal();
+        }
+      );
       return;
     }
     closeNoteModal();
