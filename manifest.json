@@ -7,9 +7,9 @@
   "theme_color": "#1c1c1c",
   "icons": [
     {
-      "src": "https://www.gstatic.com/images/branding/product/2x/firebase_64dp.png",
-      "sizes": "128x128",
-      "type": "image/png"
+      "src": "./icon.jpg",
+      "sizes": "1024x1024",
+      "type": "image/jpeg"
     }
   ]
 }
