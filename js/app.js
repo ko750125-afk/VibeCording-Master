@@ -276,20 +276,25 @@
   /* ════════════════════════════════════════════════
    * 6. Firebase 인증 & 데이터 싱크
    * ════════════════════════════════════════════════ */
+  var profileUnsub = null;   // 실시간 리스너 해제 함수
+  var itemsUnsub   = null;
+
   async function startSync(user) {
-    if (!user) { SYNC.ready = false; return; }
+    if (!user) { stopSync(); return; }
 
     var db  = window.fbDb;
     var uid = user.uid;
 
     try {
-      var profileRef  = db.doc("data/users/" + uid + "/profile");
-      var itemsRef    = profileRef.collection("items");
-      var profileSnap = await profileRef.get();
-      var itemsSnap   = await itemsRef.limit(1000).get();
+      var profileRef = db.doc("data/users/" + uid + "/profile");
+      var itemsRef   = profileRef.collection("items");
 
       SYNC.profileRef = profileRef;
       SYNC.itemsRef   = itemsRef;
+
+      // ── 최초 1회: 프로필 + 아이템 읽기 ──
+      var profileSnap = await profileRef.get();
+      var itemsSnap   = await itemsRef.limit(1000).get();
 
       if (profileSnap.exists) {
         var data      = profileSnap.data() || {};
@@ -330,10 +335,53 @@
       renderAll();
       if (drawer.classList.contains("open") && drawerTopic) renderSubList(drawerTopic);
 
+      // ── 실시간 리스너: 프로필(LIST) 변경 감지 ──
+      if (profileUnsub) profileUnsub();
+      var firstProfileSnap = true;
+      profileUnsub = profileRef.onSnapshot(function (snap) {
+        if (firstProfileSnap) { firstProfileSnap = false; return; } // 최초는 이미 처리함
+        if (!snap.exists) return;
+        var d = snap.data() || {};
+        var ver = Number(d.seedVersion || 0);
+        LIST = reconcileList(d.list || {}, ver);
+        persistListLocal();
+        renderAll();
+        if (drawer.classList.contains("open") && drawerTopic) renderSubList(drawerTopic);
+      });
+
+      // ── 실시간 리스너: 아이템(STATE) 변경 감지 ──
+      if (itemsUnsub) itemsUnsub();
+      var firstItemsSnap = true;
+      itemsUnsub = itemsRef.onSnapshot(function (snap) {
+        if (firstItemsSnap) { firstItemsSnap = false; return; }
+        snap.docChanges().forEach(function (change) {
+          var id = change.doc.id;
+          var v  = change.doc.data() || {};
+          if (change.type === "removed") {
+            delete STATE[id];
+          } else {
+            STATE[id] = {
+              status:    Number(v.status) || STATUS.TODO,
+              notes:     typeof v.notes === "string" ? v.notes : "",
+              updatedAt: v.updatedAt || null,
+            };
+          }
+        });
+        persist();
+        renderAll();
+        if (drawer.classList.contains("open") && drawerTopic) renderSubList(drawerTopic);
+      });
+
     } catch (err) {
       console.error(err);
       SYNC.ready = false;
     }
+  }
+
+  function stopSync() {
+    SYNC.ready = false;
+    if (profileUnsub) { profileUnsub(); profileUnsub = null; }
+    if (itemsUnsub)   { itemsUnsub();   itemsUnsub   = null; }
   }
 
   function initAuth() {
@@ -359,7 +407,7 @@
         startSync(user);
       } else {
         loginLabel.textContent = "Google 로그인";
-        SYNC.ready = false;
+        stopSync();
         loadState();
         loadList();
         renderAll();
