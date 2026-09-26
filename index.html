@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>VibeCording-Master</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div class="brand">
+      <div>
+        <h1>VibeCording-Master</h1>
+      </div>
+    </div>
+    <div class="top-right">
+      <button id="loginBtn" class="google-login-btn" type="button">
+        <svg class="google-icon" viewBox="0 0 48 48" width="16px" height="16px">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+          <path fill="none" d="M0 0h48v48H0z"></path>
+        </svg>
+        <span id="loginLabel">Google 로그인</span>
+      </button>
+      <button class="track-btn" id="trackBtn" type="button" title="클릭하면 초보자용으로 전환합니다">
+        <span class="track-dot"></span><span id="trackLabel">중급자용</span><span class="track-swap">⇄</span>
+      </button>
+      <div class="stat">
+        <div class="stat-num"><span id="doneCount">0</span><span class="stat-slash">/</span><span id="totalCount">0</span></div>
+        <div class="stat-label">항목 완료</div>
+        <div class="progress-track"><div class="progress-fill" id="headerFill"></div></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="legend">
+      <span class="legend-item"><i class="dot todo"></i>미학습</span>
+      <span class="legend-item"><i class="dot learning"></i>학습중</span>
+      <span class="legend-item"><i class="dot done"></i>완료</span>
+      <span class="legend-item" id="legendOff" hidden><i class="dot off"></i>중급 과정 (비활성)</span>    </section>
+
+    <section class="diagram-wrap">
+      <svg class="diagram" viewBox="0 0 1000 730" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="바이브코딩 아키텍처 다이어그램">
+        <text x="500" y="20" text-anchor="middle" class="section-label">어떻게 함께 만들 것인가</text>
+        <path class="satellite-line" d="M231,106 V142"></path>
+        <path class="satellite-line" d="M660,106 V142"></path>
+
+        <!-- AI COLLABORATION -->
+        <g class="node" tabindex="0" role="button" aria-label="AI 협업 섹션 열기" data-topic="ai">
+          <rect class="box" x="140" y="32" width="720" height="74" rx="10"></rect>
+          <text x="500" y="66" text-anchor="middle" class="node-title">AI 협업</text>
+          <text x="500" y="84" text-anchor="middle" class="node-sub">AI에게 맡기고, 검증하며 함께 만드는 법</text>
+          <rect class="node-fill-track" x="156" y="92" width="688" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="ai" x="156" y="92" width="0" height="5" rx="2.5"></rect>
+          <text x="846" y="54" text-anchor="end" class="node-count" data-count="ai">0/0</text>
+        </g>
+
+        <g transform="translate(0,110)">
+        <text x="500" y="20" text-anchor="middle" class="section-label">무엇으로 만들 것인가</text>
+        <text x="500" y="196" text-anchor="middle" class="section-label">시스템이 동작하는 순서</text>
+        <text x="256" y="372" class="section-label">기반</text>
+        <text x="500" y="502" text-anchor="middle" class="section-label">모든 코드를 관리하는 기록</text>
+
+        <!-- actor -->
+        <circle cx="60" cy="250" r="30" class="actor-ring"></circle>
+        <text x="60" y="246" text-anchor="middle" class="actor-label">사용자</text>
+        <text x="60" y="260" text-anchor="middle" class="actor-sub">접속</text>
+
+        <!-- main flow arrows -->
+        <path class="flow-line" d="M92,250 H148"></path>
+        <path class="flow-arrow" d="M148,250 L140,245 L140,255 Z"></path>
+
+        <path class="flow-line" d="M312,250 H378"></path>
+        <path class="flow-arrow" d="M378,250 L370,245 L370,255 Z"></path>
+
+        <path class="flow-line" d="M512,250 H578"></path>
+        <path class="flow-arrow" d="M578,250 L570,245 L570,255 Z"></path>
+
+        <path class="flow-line" d="M742,250 H808"></path>
+        <path class="flow-arrow" d="M808,250 L800,245 L800,255 Z"></path>
+
+        <!-- satellite connectors -->
+        <path class="satellite-line" d="M345,250 V314 Q345,328 330,328 V380"></path>
+        <path class="satellite-line" d="M445,295 V332 Q445,350 510,350 V380"></path>
+        <path class="satellite-line" d="M660,295 V332 Q660,350 690,350 V380"></path>
+        <path class="satellite-line" d="M230,295 V436 Q230,452 260,452 H150 Q140,452 140,462 V508"></path>
+        <path class="satellite-line" d="M660,295 V508"></path>
+
+        <!-- stack connectors -->
+        <path class="satellite-line" d="M231,106 V205"></path>
+        <path class="satellite-line" d="M660,106 V205"></path>
+
+        <!-- TECH STACK -->
+        <g class="node" tabindex="0" role="button" aria-label="기술스택 섹션 열기" data-topic="techstack">
+          <rect class="box" x="140" y="32" width="720" height="74" rx="10"></rect>
+          <text x="500" y="66" text-anchor="middle" class="node-title">기술스택</text>
+          <text x="500" y="84" text-anchor="middle" class="node-sub">무엇으로, 어떻게 만들 것인가</text>
+          <rect class="node-fill-track" x="156" y="92" width="688" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="techstack" x="156" y="92" width="0" height="5" rx="2.5"></rect>
+          <text x="846" y="54" text-anchor="end" class="node-count" data-count="techstack">0/0</text>
+        </g>
+
+        <!-- FRONTEND -->
+        <g class="node" tabindex="0" role="button" aria-label="프론트엔드 섹션 열기" data-topic="frontend">
+          <rect class="box" x="150" y="205" width="162" height="90" rx="10"></rect>
+          <text x="231" y="248" text-anchor="middle" class="node-title">프론트엔드</text>
+          <text x="231" y="266" text-anchor="middle" class="node-sub">화면과 사용자 경험</text>
+          <rect class="node-fill-track" x="164" y="277" width="134" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="frontend" x="164" y="277" width="0" height="5" rx="2.5"></rect>
+          <text x="298" y="225" text-anchor="end" class="node-count" data-count="frontend">0/0</text>
+        </g>
+
+        <!-- API -->
+        <g class="node" tabindex="0" role="button" aria-label="API 섹션 열기" data-topic="api">
+          <rect class="box" x="378" y="205" width="134" height="90" rx="10"></rect>
+          <text x="445" y="248" text-anchor="middle" class="node-title">API</text>
+          <text x="445" y="266" text-anchor="middle" class="node-sub">통신 규칙</text>
+          <rect class="node-fill-track" x="392" y="277" width="106" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="api" x="392" y="277" width="0" height="5" rx="2.5"></rect>
+          <text x="498" y="225" text-anchor="end" class="node-count" data-count="api">0/0</text>
+        </g>
+
+        <!-- BACKEND -->
+        <g class="node" tabindex="0" role="button" aria-label="백엔드 섹션 열기" data-topic="backend">
+          <rect class="box" x="578" y="205" width="164" height="90" rx="10"></rect>
+          <text x="660" y="248" text-anchor="middle" class="node-title">백엔드</text>
+          <text x="660" y="266" text-anchor="middle" class="node-sub">서버의 처리 로직</text>
+          <rect class="node-fill-track" x="592" y="277" width="136" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="backend" x="592" y="277" width="0" height="5" rx="2.5"></rect>
+          <text x="728" y="225" text-anchor="end" class="node-count" data-count="backend">0/0</text>
+        </g>
+
+        <!-- DATABASE -->
+        <g class="node" tabindex="0" role="button" aria-label="데이터베이스 섹션 열기" data-topic="database">
+          <rect class="box" x="808" y="205" width="160" height="90" rx="10"></rect>
+          <text x="888" y="248" text-anchor="middle" class="node-title">데이터베이스</text>
+          <text x="888" y="266" text-anchor="middle" class="node-sub">기록의 저장소</text>
+          <rect class="node-fill-track" x="822" y="277" width="132" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="database" x="822" y="277" width="0" height="5" rx="2.5"></rect>
+          <text x="954" y="225" text-anchor="end" class="node-count" data-count="database">0/0</text>
+        </g>
+
+        <!-- NETWORK -->
+        <g class="node" tabindex="0" role="button" aria-label="네트워크 섹션 열기" data-topic="network">
+          <rect class="box" x="255" y="380" width="150" height="82" rx="10"></rect>
+          <text x="330" y="419" text-anchor="middle" class="node-title">네트워크</text>
+          <text x="330" y="435" text-anchor="middle" class="node-sub">인터넷이 동작하는 원리</text>
+          <rect class="node-fill-track" x="267" y="445" width="126" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="network" x="267" y="445" width="0" height="5" rx="2.5"></rect>
+          <text x="391" y="398" text-anchor="end" class="node-count" data-count="network">0/0</text>
+        </g>
+
+        <!-- AUTH -->
+        <g class="node" tabindex="0" role="button" aria-label="인증 보안 섹션 열기" data-topic="auth">
+          <rect class="box" x="435" y="380" width="150" height="82" rx="10"></rect>
+          <text x="510" y="419" text-anchor="middle" class="node-title">인증·보안</text>
+          <text x="510" y="435" text-anchor="middle" class="node-sub">누가, 무엇을 할 수 있는가</text>
+          <rect class="node-fill-track" x="447" y="445" width="126" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="auth" x="447" y="445" width="0" height="5" rx="2.5"></rect>
+          <text x="571" y="398" text-anchor="end" class="node-count" data-count="auth">0/0</text>
+        </g>
+
+        <!-- DEPLOY -->
+        <g class="node" tabindex="0" role="button" aria-label="배포 인프라 섹션 열기" data-topic="deploy">
+          <rect class="box" x="615" y="380" width="150" height="82" rx="10"></rect>
+          <text x="690" y="419" text-anchor="middle" class="node-title">배포·인프라</text>
+          <text x="690" y="435" text-anchor="middle" class="node-sub">세상에 공개하기</text>
+          <rect class="node-fill-track" x="627" y="445" width="126" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="deploy" x="627" y="445" width="0" height="5" rx="2.5"></rect>
+          <text x="751" y="398" text-anchor="end" class="node-count" data-count="deploy">0/0</text>
+        </g>
+
+        <!-- GIT -->
+        <g class="node" tabindex="0" role="button" aria-label="버전관리 섹션 열기" data-topic="git">
+          <rect class="box" x="140" y="508" width="720" height="72" rx="10"></rect>
+          <text x="500" y="542" text-anchor="middle" class="node-title">버전관리 (Git)</text>
+          <text x="500" y="560" text-anchor="middle" class="node-sub">코드가 변화해 온 과정을 기록하고 되돌리는 방법</text>
+          <rect class="node-fill-track" x="156" y="568" width="688" height="5" rx="2.5"></rect>
+          <rect class="node-fill" data-fill="git" x="156" y="568" width="0" height="5" rx="2.5"></rect>
+          <text x="846" y="530" text-anchor="end" class="node-count" data-count="git">0/0</text>
+        </g>
+        </g>
+      </svg>
+    </section>
+
+    <section class="list-view" id="listView"></section>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <div>
+      <h2 id="drawerTitle">제목</h2>
+      <p class="drawer-desc" id="drawerDesc">설명</p>
+    </div>
+    <button class="close-btn" id="closeDrawer" aria-label="닫기">✕</button>
+  </div>
+  <div class="drawer-progress">
+    <div class="progress-track small" style="flex:1"><div class="progress-fill" id="drawerFill"></div></div>
+    <span class="mono" id="drawerCount">0/0</span>
+  </div>
+  <div class="sub-list" id="subList"></div>
+</aside>
+
+<div class="note-scrim" id="noteScrim"></div>
+<section class="note-modal" id="noteModal" aria-hidden="true">
+  <div class="note-modal-head">
+    <div style="flex:1; min-width:0;">
+      <input type="text" id="noteTitleInput" class="note-title-input" aria-label="항목 이름" placeholder="제목을 입력하세요" maxlength="80">
+    </div>
+    <div class="note-modal-actions">
+      <button class="status-chip" id="noteChip" type="button"></button>
+      <button class="close-btn" id="noteClose" aria-label="닫기">✕</button>
+    </div>
+  </div>
+  <textarea id="noteTextarea" class="note-textarea" placeholder="AI와의 대화에서 배운 내용을 여기에 자유롭게 정리하세요..."></textarea>
+  <div class="note-modal-foot">
+    <span class="mono note-save-hint" id="noteSaveHint">마지막 저장: —</span>
+    <button class="save-btn" id="noteSaveBtn" type="button">저장</button>
+  </div>
+</section>
+
+<div class="confirm-scrim" id="confirmScrim"></div>
+<div class="confirm-dialog" id="confirmDialog" role="alertdialog" aria-hidden="true" aria-labelledby="confirmTitle">
+  <p class="confirm-title" id="confirmTitle">항목을 삭제할까요?</p>
+  <p class="confirm-body" id="confirmBody">이 항목과 작성한 메모가 함께 삭제되며, 되돌릴 수 없습니다.</p>
+  <div class="confirm-actions">
+    <button class="confirm-cancel" id="confirmCancel" type="button">취소</button>
+    <button class="confirm-ok" id="confirmOk" type="button">삭제</button>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyDGlcpvw4zTeNJKSG1YiTYregI8B4VyfzM",
+    authDomain: "gen-lang-client-0701799372.firebaseapp.com",
+    projectId: "gen-lang-client-0701799372",
+    storageBucket: "gen-lang-client-0701799372.firebasestorage.app",
+    messagingSenderId: "198841776420",
+    appId: "1:198841776420:web:d01765b513ac0658f95bb1"
+  };
+  firebase.initializeApp(firebaseConfig);
+  window.fbAuth = firebase.auth();
+  window.fbDb = firebase.firestore();
+</script>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
+</body>
+</html>
