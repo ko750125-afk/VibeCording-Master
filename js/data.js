@@ -140,8 +140,9 @@ var TOPICS = [
 // Ids of the first seed list, so a migration can tell user-deleted items from new ones.
 var V1_SEED_COUNTS = { techstack:["stk",10], frontend:["fe",9], api:["api",8], backend:["be",9],
   database:["db",8], network:["nw",7], auth:["auth",8], deploy:["ops",8], git:["git",7], ref:["ref",3] };
-var SEED_VERSION = 3;
+var SEED_VERSION = 4;
 var ADDED_IN_V3 = { "ai-13":true, "fe-16":true, "api-13":true };
+var ADDED_IN_V4 = { "ref-1":true, "ref-2":true, "ref-3":true };
 var BODY_VERSION = 1;
 
 // Items a first-time vibe coder should start with; everything else is dimmed in 초보자용.

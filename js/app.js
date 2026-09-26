@@ -375,6 +375,7 @@
     } catch (err) {
       console.error(err);
       SYNC.ready = false;
+      renderAll();
     }
   }
 
