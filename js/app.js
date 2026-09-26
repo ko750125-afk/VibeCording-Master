@@ -15,9 +15,9 @@
   // 학습 상태 상수 (0: 미학습, 1: 학습중, 2: 완료)
   var STATUS = { TODO: 0, LEARNING: 1, DONE: 2 };
   var STATUS_LABELS = {
-    0: "○ 미학습",
-    1: "◐ 학습중",
-    2: "● 완료",
+    0: "○ Preview",
+    1: "◐ Study",
+    2: "● Clear",
   };
 
   var STATE = {};     // { [subId]: { status, notes, updatedAt } }
